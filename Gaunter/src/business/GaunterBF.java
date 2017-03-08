@@ -24,7 +24,7 @@ public class GaunterBF {
         
     }
     
-    public ArrayList<String> getSession_Query(int user){
+    public ArrayList<String> getSession_Queries(int user){
         
     }
     
