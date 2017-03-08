@@ -1,6 +1,6 @@
 package business;
 
-public class Recommendation {
+class Recommendation {
     
     private Query user_query;
     private Query same_state_recommendation;

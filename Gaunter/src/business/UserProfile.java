@@ -2,7 +2,7 @@ package business;
 
 import java.util.*;
 
-public class UserProfile {
+class UserProfile {
     
     private int user_number;
     private String user_name;
@@ -12,8 +12,5 @@ public class UserProfile {
         this.user_number = user_number;
         this.user_name = user_name;
         this.states = states;
-    }
-    
-    
-    
+    } 
 }
