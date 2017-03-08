@@ -22,8 +22,14 @@ public class GaunterBF {
         
     }
     
-    public void Feedback_Query(Login_Token token, Query query_with_feedback , Boolean feedback_value){
+    public void Feedback_Recommendataion(Login_Token token, Query query_with_feedback , Boolean feedback_value){
         
     }
+    
+    public void Feedback_Jump(Login_Token token, Query query_with_feedback , Boolean feedback_value){
+        
+    }
+    
+    
     
 }
