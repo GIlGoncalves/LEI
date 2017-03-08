@@ -1,29 +1,41 @@
 
 package business;
 
+import java.util.*;
+
 public class GaunterBF {
     
     public GaunterBF(){
         
     }
     
-    public Login_Token Login_User(String user_name, String hashed_password){
+    public int Login_User(String user_name, String hashed_password){
         
     }
     
-    public void LogOut_User(Login_Token token){
+    public void LogOut_User(int user_number){
         
     }
     
-    public Login_Token Register_User(String user_name, String hashed_password){
+    public int Register_User(String user_name, String hashed_password){
         
     }
-    public void Insert_Query(Login_Token token, String query){
+    public void Insert_Query(int user, String query){
         
     }
     
-    public void Feedback_Query(Login_Token token, Query query_with_feedback , Boolean feedback_value){
+    public ArrayList<String> getSession_Queries(int user){
         
     }
+    
+    public void Feedback_Recommendataion(int user, String query, Boolean feedback_value){
+        
+    }
+    
+    public void Feedback_Jump(int user, String query , Boolean feedback_value){
+        
+    }
+    
+    
     
 }

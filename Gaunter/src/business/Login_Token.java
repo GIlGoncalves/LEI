@@ -9,7 +9,7 @@ public class Login_Token {
     private String user_name;
     private GregorianCalendar login_time;
     private GregorianCalendar last_activity;
-    private ArrayList<Triple<Query,Recommendation,JumpState>> 
+    private ArrayList<Recommendation> queries;
     
     public Login_Token(){
         this.valid_token = false;
