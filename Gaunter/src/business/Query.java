@@ -31,6 +31,6 @@ public class Query {
     }
     
     private Boolean Validate_Query(){
-        
+        return true;
     }
 }
