@@ -8,7 +8,6 @@ class State {
     public String fact_table;
     public ArrayList<String> dimensions;
     public ArrayList<Preference> preferences;
-    public ArrayList<JumpState> jump_states;
     
     public State(){
         

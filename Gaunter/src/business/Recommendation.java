@@ -12,4 +12,29 @@ class Recommendation {
         this.jump_state_recommendation = jump_state_recommendation;
     }
     
+    public Query getUserQuery(){
+        return user_query;
+    }
+
+    public Query getSame_state_recommendation() {
+        return same_state_recommendation;
+    }
+
+    public Query getJump_state_recommendation() {
+        return jump_state_recommendation;
+    }
+    
+    public Boolean Match_User_Query(){
+        
+    }
+    
+    public Boolean Match_Same_State_Query(){
+        
+    }
+    
+    public Boolean Match_Jump_State_Query(){
+        
+    }
+    
+    
 }

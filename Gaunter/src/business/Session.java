@@ -27,6 +27,10 @@ class Session {
         this.last_activity = new GregorianCalendar();
     }
     
+    public int getUser_Number(){
+        return this.user_number;
+    }
+    
     public void Register_Query(String user_query){
         this.Register_Activity();
     }
