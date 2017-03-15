@@ -1,6 +1,6 @@
 
 package business;
 
-public class Preference {
+class Preference {
     
 }

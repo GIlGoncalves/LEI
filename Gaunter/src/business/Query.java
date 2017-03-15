@@ -2,7 +2,7 @@ package business;
 
 import java.util.*;
 
-public class Query {
+class Query {
     
     private boolean valid_query;
     private String query_body_pure;

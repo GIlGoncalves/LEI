@@ -1,29 +1,21 @@
 
 package business;
 
-public class RecommendationEngine {
+class RecommendationEngine {
     
-    private Query query_user;
-    private UserProfile profile_user;
-    
-    public RecommendationEngine(Query query_user, UserProfile profile_user){
-        this.query_user = query_user;
-        this.profile_user = profile_user;
+    public RecommendationEngine(){
+
     }
     
-    public void Calculate_Recommendation(){
+    public Recommendation Calculate_Recommendation(Query user_query, Session user_session){
         
     }
     
-    public void Calculate_JumpState(){
+    public void FeedBack_Recommendation(String user_query, Session user_session){
         
     }
     
-    public void FeedBack_Recommendation(){
-        
-    }
-    
-    public void FeedBack_Jump(){
+    public void FeedBack_Jump(String user_query, Session user_session ){
         
     }
     

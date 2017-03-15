@@ -11,6 +11,7 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -19,7 +20,8 @@ import java.util.logging.Logger;
  * @author gil
  */
 public class Query extends javax.swing.JDialog {
-
+   private Querys quer;
+   private String email;
     /**
      * Creates new form Query
      */
@@ -29,8 +31,10 @@ public class Query extends javax.swing.JDialog {
     }
     
     public Query (String email) {
-    
+        
         initComponents();
+        this.email=email;
+        this.quer = new Querys();
     }
     
    
@@ -49,9 +53,6 @@ public class Query extends javax.swing.JDialog {
         jScrollPane1 = new javax.swing.JScrollPane();
         pedidos = new javax.swing.JTextArea();
         jLabel1 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        resultados = new javax.swing.JTextArea();
         jLabel2 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
@@ -66,23 +67,27 @@ public class Query extends javax.swing.JDialog {
         jLabel1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jLabel1.setText("Escreva aqui as suas querys");
 
-        jButton1.setText("Confirmar");
-        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+        jLabel2.setFont(new java.awt.Font("Arial", 0, 24)); // NOI18N
+        jLabel2.setText("Resultados");
+
+        jButton2.setText("Ver Recomendacao");
+        jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButton1MouseClicked(evt);
+                jButton2MouseClicked(evt);
+            }
+        });
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
             }
         });
 
-        resultados.setColumns(20);
-        resultados.setRows(5);
-        jScrollPane2.setViewportView(resultados);
-
-        jLabel2.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        jLabel2.setText("Resultado");
-
-        jButton2.setText("Gostar");
-
-        jButton3.setText("Não gostar");
+        jButton3.setText("Ver o que escolheu");
+        jButton3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton3MouseClicked(evt);
+            }
+        });
 
         jButton4.setText("voltar atras");
         jButton4.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -95,91 +100,49 @@ public class Query extends javax.swing.JDialog {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 227, Short.MAX_VALUE)
-                        .addComponent(jScrollPane1))
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 85, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton2))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton3))
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 292, Short.MAX_VALUE))
-                .addGap(50, 50, 50))
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 227, Short.MAX_VALUE)
+                            .addComponent(jScrollPane1)))
+                    .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(95, 95, 95)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 292, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(68, 68, 68)
+                        .addComponent(jButton2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 86, Short.MAX_VALUE)
+                        .addComponent(jButton3)
+                        .addGap(75, 75, 75))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(21, 21, 21)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 39, Short.MAX_VALUE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 154, Short.MAX_VALUE)
-                    .addComponent(jScrollPane2))
-                .addGap(26, 26, 26)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 124, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(21, 21, 21)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 39, Short.MAX_VALUE)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(160, 160, 160)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 229, Short.MAX_VALUE)
                 .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
-        // TODO add your handling code here:
-        if(this.pedidos.getText().equals("")==false) {
-        
-            try {
-                Connection c = Connect.connect();
-                
-                 ResultSet rs =null;
-                 
-               rs= c.createStatement().executeQuery(this.pedidos.getText());
-               ResultSetMetaData rsmd = rs.getMetaData();
-               int columnsNumber = rsmd.getColumnCount();
-               ArrayList<String> add = new ArrayList<>();
-               while(rs.next()) {
-               
-                  for (int i = 1; i <= columnsNumber; i++) {
-                        
-                        String columnValue = rs.getString(i);
-                        add.add(rsmd.getColumnName(i) + "\n " +columnValue +"\n");
-                    }
-                    
-                  add.add("");
-               }
-                
-               this.resultados.setText(add.toString());
-                
-                
-                
-            } catch (SQLException ex) {
-                Logger.getLogger(Query.class.getName()).log(Level.SEVERE, null, ex);
-            }
-
-            
-            
-            
-        
-        }
-        
-        
-    }//GEN-LAST:event_jButton1MouseClicked
 
     private void jButton4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton4MouseClicked
         // TODO add your handling code here:
@@ -188,21 +151,156 @@ public class Query extends javax.swing.JDialog {
         
     }//GEN-LAST:event_jButton4MouseClicked
 
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
+        // TODO add your handling code here:
+        ResultSet rs =null;
+         Connection c=null;
+         
+        if(this.pedidos.getText().equals("")==false) {
+        
+            try {
+                String a = this.pedidos.getText().toUpperCase();
+                
+                 if(this.quer.getRecomendacao().containsKey(a)) {
+                 c = Connect.connect();
+                 
+                
+                 List<String> tmp = this.quer.getRecomendacao().get(a);
+                    
+                 
+               rs= c.createStatement().executeQuery(tmp.get(0));
+               ResultSetMetaData rsmd = rs.getMetaData();
+               int columnsNumber = rsmd.getColumnCount();
+               ArrayList<String> add = new ArrayList<>();
+               
+               while(rs.next()) {
+               
+                  for (int i = 1; i <= columnsNumber; i++) {
+                        
+                        String columnValue = rs.getString(i);
+                        add.add(rsmd.getColumnName(i)+"  " +columnValue +"\n\n");
+                    }
+                    
+                  add.add("");
+               }
+                  
+               
+                 new ResultadoFinal(add,email).setVisible(true);
+                 this.dispose();
+             
+           }
+                
+            }  catch(SQLException e)
+       {  System.err.println(e.getMessage());   }
+     
+       finally
+         
+        { 
+            if(rs!=null) {
+                try {
+                    rs.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(Query.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            
+                try {
+                    if(c!=null) 
+                    c.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(Query.class.getName()).log(Level.SEVERE, null, ex);
+                }
+        }
+        }
+        
+    }//GEN-LAST:event_jButton2MouseClicked
+
+    private void jButton3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3MouseClicked
+        // TODO add your handling code here:
+      
+         ResultSet rs =null;
+         Connection c=null;
+         
+        if(this.pedidos.getText().equals("")==false) {
+        
+            try {
+                String a = this.pedidos.getText().toUpperCase();
+                
+                 if(this.quer.getQueryUser().containsKey(a)) {
+                 c = Connect.connect();
+                 
+                
+                 List<String> tmp = this.quer.getQueryUser().get(a);
+                    
+                 
+               rs= c.createStatement().executeQuery(tmp.get(0));
+               ResultSetMetaData rsmd = rs.getMetaData();
+               int columnsNumber = rsmd.getColumnCount();
+               ArrayList<String> add = new ArrayList<>();
+               
+               while(rs.next()) {
+               
+                  for (int i = 1; i <= columnsNumber; i++) {
+                        
+                        String columnValue = rs.getString(i);
+                        add.add(rsmd.getColumnName(i)+"  " +columnValue +"\n \n");
+                    }
+                    
+                  add.add("");
+               }
+                  
+               
+                 new ResultadoFinal(add,email).setVisible(true);
+                 this.dispose();
+             
+           }
+                
+            }  catch(SQLException e)
+       {  System.err.println(e.getMessage());   }
+     
+       finally
+         
+        { 
+            if(rs!=null) {
+                try {
+                    rs.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(Query.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            
+                try {
+                    if(c!=null) 
+                    c.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(Query.class.getName()).log(Level.SEVERE, null, ex);
+                }
+        }
+        }
+        
+      
+        
+        
+        
+        
+    }//GEN-LAST:event_jButton3MouseClicked
+
     /**
      * @param args the command line arguments
      */
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextArea pedidos;
-    private javax.swing.JTextArea resultados;
     // End of variables declaration//GEN-END:variables
 }
