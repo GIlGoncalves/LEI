@@ -13,4 +13,8 @@ class State {
         
     }
     
+    public Boolean equals(){
+        return false;
+    }
+    
 }

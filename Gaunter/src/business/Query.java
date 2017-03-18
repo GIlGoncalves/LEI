@@ -26,6 +26,22 @@ class Query {
         }
     }
     
+    public Boolean isValid(){
+        return this.valid_query;
+    }
+    
+    public State getState(){
+        return this.query_state;
+    }
+    
+    public Boolean State_Equals(Query query){
+        Boolean res = false;
+        if(this.query_state.equals(query.query_state)){
+            res = true;
+        }
+        return res;
+    }
+    
     private void Process_Query(){
         
     }

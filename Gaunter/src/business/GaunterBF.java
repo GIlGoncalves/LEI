@@ -20,7 +20,7 @@ public class GaunterBF {
     public int Register_User(String user_name, String hashed_password){
         
     }
-    public void Insert_Query(int user, String query){
+    public QueryResult Insert_Query(int user, String query){
         
     }
     

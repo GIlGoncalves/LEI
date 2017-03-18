@@ -11,6 +11,8 @@ class MarkovChain_States {
     
     public MarkovChain_States(){
         this.nodes = new HashMap<Integer,Node>();
+        this.nodes.put(-2, new Final_Node());
+        this.nodes.put(-1, new Start_Node());
         this.arks = new HashSet<Ark>();
         this.number_of_arks = 0;
         this.number_of_nodes = 0;
@@ -23,20 +25,34 @@ class MarkovChain_States {
         this.number_of_nodes = number_of_nodes;
     }
     
-    public void addNode(State new_state){
+    public Recommendation Insert_Query(Query previous_query, Query next_query){
+        if(previous_query.State_Equals(next_query)){
+            
+        }
+        else{
+            
+        }
+    }
+    
+    public Recommendation Insert_First_Query(Query user_query){
+        
+    }
+    
+    private void addNode(State new_state){
         this.number_of_nodes++;
         Node new_node = new Node(this.number_of_nodes, new_state);
         this.nodes.put(new_node.reference, new_node);
+        this.arks.add(new Ark(new_node.reference, -2));
     }
     
-    public void addArk(int start_node, int end_node){
+    private void addArk(int start_node, int end_node){
         Ark new_ark = new Ark(start_node, end_node);
         this.number_of_arks++;
         this.arks.add(new_ark);
     }
     
     
-    public void Register_State_Jump(State start_state, State end_state){
+    private void Register_State_Jump(State start_state, State end_state){
         
         Ark search_ark = new Ark(start_state.state_id, end_state.state_id);
         Boolean found_ark = false;
@@ -89,6 +105,29 @@ class MarkovChain_States {
             this.reference = reference;
             this.state = state;
         }
+        
+        public Node(){
+            this.reference = 0;
+            this.state = null;
+        }
+    }
+    
+    private class Final_Node extends Node{
+        
+        public Final_Node(){
+            this.reference = -2;
+            this.state = null;
+        }
+                 
+    }
+    
+    private class Start_Node extends Node{
+        
+        public Start_Node(){
+            this.reference = -1;
+            this.state = null;
+        }
+                 
     }
     
     private class Ark{
