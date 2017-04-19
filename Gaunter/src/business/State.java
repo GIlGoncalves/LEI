@@ -13,8 +13,20 @@ class State {
         
     }
     
+    public Query Generate_Recommendation(){
+        return new Query();
+    }
+    
+    public Query Generate_Recommendation(Query user_query){
+        return new Query();
+    }
+    
     public Boolean equals(){
         return false;
+    }
+    
+    public State clone(){
+        return this;
     }
     
 }

@@ -17,6 +17,15 @@ class TimeManager {
     //Fiscal Year Related
     private Date fiscal_year_end;
     private Date fiscal_year_start;
+    
+    private static float time_of_day_true = 0.5f;
+    private static float time_of_day_false = 1/8;
+    private static float week_day_true = 0.25f;
+    private static float week_day_false = 3/24;
+    private static float quarter_true = 0.75f;
+    private static float quarter_false = 0.25f;
+    private static float fiscal_true = 0.75f;
+    private static float fiscal_false = 0.25f;
 
     public TimeManager() {
         this.early_morning_end = new Hour(8,59);
@@ -44,6 +53,60 @@ class TimeManager {
         res[this.getFiscal_Year()]=1;
             
         return res;
+    }
+    
+    public float[] getTimeFieldsF(){
+        float [] res = new float[16];
+        
+        for(int i = 0; i<16; i++){
+            res[i]=0;
+        }
+        
+        res[this.getTime_of_Day()]=1;
+        res[this.getWeek_Day()]=1;
+        res[this.getQuarter()]=1;
+        res[this.getFiscal_Year()]=1;
+            
+        return res;
+    }
+    
+    public float[] getTimeFunction(){
+        float [] time_vector = this.getTimeFieldsF();
+        int i = 0;
+        
+        for(i=0; i< 5; i++){
+            if(time_vector[i]==1){
+                time_vector[i] = time_of_day_true;
+            } else {
+                time_vector[i] = time_of_day_false;
+            }
+        }
+        
+        for(i=5; i<12; i++){
+            if(time_vector[i]==1){
+                time_vector[i] = week_day_true;
+            } else {
+                time_vector[i] = week_day_false;
+            }
+        }
+        
+        for(i=12;i<14;i++){
+            if(time_vector[i]==1){
+                time_vector[i] = quarter_true;
+            } else {
+                time_vector[i] = quarter_false;
+            }
+        }
+        
+        for(i=14;i<16;i++){
+            if(time_vector[i]==1){
+                time_vector[i] = fiscal_true;
+            } else {
+                time_vector[i] = fiscal_false;
+            }
+        }
+        
+        return time_vector;
     }
     
     private int getTime_of_Day(){
