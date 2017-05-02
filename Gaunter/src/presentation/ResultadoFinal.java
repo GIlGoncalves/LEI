@@ -5,7 +5,17 @@
  */
 package presentation;
 
+import data.Connect;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
 import java.util.List;
+import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -13,6 +23,7 @@ import java.util.List;
  */
 public class ResultadoFinal extends javax.swing.JDialog {
   private String email;
+  private String query;
     /**
      * Creates new form ResultadoFinal
      */
@@ -22,12 +33,69 @@ public class ResultadoFinal extends javax.swing.JDialog {
     }
 
     
-    public ResultadoFinal(List<String> resultado,String email) {
+    public ResultadoFinal(String query,String email) {
     
         initComponents();
         this.email=email;
-        this.apresentacao.setText(resultado.toString());
+        this.query=query;
+        DefaultTableModel dtm = new DefaultTableModel(0, 0);
+        this.comPreferencias.setVisible(false);
+        Connection c = null;
+        ResultSet rs=null;
+       
+        
+         
+      try {
+          c = Connect.connect();
+          rs = c.createStatement()
+                .executeQuery(query);
+          ResultSetMetaData rsmd = rs.getMetaData();
+          Vector<String> header = new Vector<>();
+          int i =0;
+          int colunas= rsmd.getColumnCount();
+          while(i<colunas) {
+                header.add(rsmd.getColumnName(i+1));
+                i++;
+              
+          }
+          
+    
+          Vector<Vector<Object>> data = new Vector<Vector<Object>>();
+           while (rs.next()) {
+        Vector<Object> vector = new Vector<Object>();
+        for (int columnIndex = 1; columnIndex <= colunas; columnIndex++) {
+            vector.add(rs.getObject(columnIndex));
+        }
+        data.add(vector);
     }
+           
+           tabela.setModel(new DefaultTableModel(data,header));
+
+          
+          
+          
+          
+      } catch (SQLException ex) {
+      
+          JOptionPane.showMessageDialog(null,
+            "Erro a estabelacer conecção",
+            "Conecção",
+        JOptionPane.ERROR_MESSAGE);
+      
+      
+      }
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+      }
     
     
     /**
@@ -39,21 +107,23 @@ public class ResultadoFinal extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jScrollPane1 = new javax.swing.JScrollPane();
-        apresentacao = new javax.swing.JTextArea();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        semPreferencias = new javax.swing.JButton();
+        salto = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tabela = new javax.swing.JTable();
+        comPreferencias = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        apresentacao.setColumns(20);
-        apresentacao.setRows(5);
-        jScrollPane1.setViewportView(apresentacao);
+        semPreferencias.setText("Resultado sem as preferencias");
+        semPreferencias.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                semPreferenciasActionPerformed(evt);
+            }
+        });
 
-        jButton3.setText("Gostar do Resultado");
-
-        jButton4.setText("Não gostar do Resultado");
+        salto.setText("Mudar de vista");
 
         jButton5.setText("voltar Atras");
         jButton5.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -62,39 +132,51 @@ public class ResultadoFinal extends javax.swing.JDialog {
             }
         });
 
+        tabela.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane2.setViewportView(tabela);
+
+        comPreferencias.setText("Resultado com Preferencias");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 80, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jButton3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jButton4)
-                                .addGap(51, 51, 51))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 544, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(61, 61, 61))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton5)
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jScrollPane2)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(semPreferencias)
+                            .addGap(81, 81, 81)
+                            .addComponent(comPreferencias)
+                            .addGap(127, 127, 127)
+                            .addComponent(salto))
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jButton5)
+                            .addGap(508, 508, 508))))
+                .addGap(0, 21, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(49, 49, 49)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 317, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 61, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(4, 4, 4)
-                        .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addGap(20, 20, 20)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 418, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(salto, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(semPreferencias, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(comPreferencias))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton5)
                 .addGap(10, 10, 10))
@@ -105,10 +187,14 @@ public class ResultadoFinal extends javax.swing.JDialog {
 
     private void jButton5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton5MouseClicked
         // TODO add your handling code here:
-      new Query(email).setVisible(true);
+      new Medio(email).setVisible(true);
       this.dispose();
         
     }//GEN-LAST:event_jButton5MouseClicked
+
+    private void semPreferenciasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_semPreferenciasActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_semPreferenciasActionPerformed
 
     /**
      * @param args the command line arguments
@@ -116,10 +202,11 @@ public class ResultadoFinal extends javax.swing.JDialog {
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextArea apresentacao;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
+    private javax.swing.JButton comPreferencias;
     private javax.swing.JButton jButton5;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JButton salto;
+    private javax.swing.JButton semPreferencias;
+    private javax.swing.JTable tabela;
     // End of variables declaration//GEN-END:variables
 }

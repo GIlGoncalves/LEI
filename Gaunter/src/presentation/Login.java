@@ -113,9 +113,8 @@ public class Login extends javax.swing.JDialog {
 
     private void okButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_okButtonMouseClicked
         // TODO add your handling code here:
-        String email = this.emailUser.getText();
-        new Query(email).setVisible(true);
-        this.dispose();
+        new Medio(this.emailUser.getText()).setVisible(true);
+       this.dispose();
         
         
     }//GEN-LAST:event_okButtonMouseClicked
