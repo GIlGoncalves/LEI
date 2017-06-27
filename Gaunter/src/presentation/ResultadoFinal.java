@@ -117,6 +117,11 @@ public class ResultadoFinal extends javax.swing.JDialog {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         semPreferencias.setText("Resultado sem as preferencias");
+        semPreferencias.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                semPreferenciasMouseClicked(evt);
+            }
+        });
         semPreferencias.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 semPreferenciasActionPerformed(evt);
@@ -152,20 +157,21 @@ public class ResultadoFinal extends javax.swing.JDialog {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jScrollPane2)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(semPreferencias)
-                            .addGap(81, 81, 81)
-                            .addComponent(comPreferencias)
-                            .addGap(127, 127, 127)
-                            .addComponent(salto))
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(jButton5)
-                            .addGap(508, 508, 508))))
-                .addGap(0, 21, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 655, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(semPreferencias)
+                                .addGap(81, 81, 81)
+                                .addComponent(comPreferencias)
+                                .addGap(127, 127, 127)
+                                .addComponent(salto))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jButton5)))
+                .addGap(25, 25, 25))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -173,13 +179,16 @@ public class ResultadoFinal extends javax.swing.JDialog {
                 .addGap(20, 20, 20)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 418, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(salto, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(semPreferencias, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(comPreferencias))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(4, 4, 4)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(semPreferencias)
+                            .addComponent(comPreferencias))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
                 .addComponent(jButton5)
-                .addGap(10, 10, 10))
+                .addContainerGap())
         );
 
         pack();
@@ -195,6 +204,11 @@ public class ResultadoFinal extends javax.swing.JDialog {
     private void semPreferenciasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_semPreferenciasActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_semPreferenciasActionPerformed
+
+    private void semPreferenciasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_semPreferenciasMouseClicked
+        // TODO add your handling code here:
+        this.comPreferencias.setVisible(true);
+    }//GEN-LAST:event_semPreferenciasMouseClicked
 
     /**
      * @param args the command line arguments
